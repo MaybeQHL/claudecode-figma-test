@@ -1,9 +1,3 @@
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
-
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
-
 # figma-test — Agent Guide
 
 2026 世界杯主题 H5 活动页。移动端优先（375px 视口），深色霓虹运动风，含竞猜、赛事、球星榜、点球小游戏等模块。
