@@ -1,26 +1,263 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* ============ 设计令牌 ============ */
+@theme {
+  --color-pitch: #0a1f1a;
+  --color-night: #0b1026;
+  --color-night2: #1a0b2e;
+  --color-neon: #00ff87;
+  --color-cyan: #00d2ff;
+  --color-flame: #ff6b35;
+  --color-gold: #ffd700;
+  --color-silver: #cfd8e3;
+  --color-bronze: #e08a4b;
+
+  --font-sans: var(--font-geist-sans), "PingFang SC", "Microsoft YaHei",
+    "Hiragino Sans GB", system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  --animate-breathe: breathe 2.4s ease-in-out infinite;
+  --animate-border-flow: border-flow 3s linear infinite;
+  --animate-beam: beam 2.5s ease-in-out infinite;
+  --animate-ring-spin: ring-spin 6s linear infinite;
+  --animate-shine: shine 3s linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-pulse-dot: pulse-dot 1.2s ease-in-out infinite;
+  --animate-flicker: flicker 2s ease-in-out infinite;
+  --animate-marquee: marquee 18s linear infinite;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============ 基础 ============ */
+html,
+body {
+  background: #05060a;
+  color: #f5f7fb;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overscroll-behavior-y: none;
+}
+
+/* 隐藏滚动条但保留滚动 */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ============ 复用工具类 ============ */
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .text-glow-neon {
+    text-shadow: 0 0 12px rgba(0, 255, 135, 0.65), 0 0 28px rgba(0, 255, 135, 0.35);
+  }
+  .text-glow-gold {
+    text-shadow: 0 0 12px rgba(255, 215, 0, 0.7), 0 0 30px rgba(255, 215, 0, 0.35);
+  }
+  .text-glow-cyan {
+    text-shadow: 0 0 12px rgba(0, 210, 255, 0.7);
+  }
+  .text-stroke-gold {
+    -webkit-text-stroke: 1px rgba(255, 215, 0, 0.55);
+  }
+
+  .grad-text-gold {
+    background: linear-gradient(180deg, #fff6c2 0%, #ffd700 45%, #c98a00 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .grad-text-neon {
+    background: linear-gradient(90deg, #00ff87, #00d2ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* 金属渐变边框（双层背景技巧） */
+  .metal-border {
+    position: relative;
+    background-clip: padding-box;
+  }
+  .metal-border::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, #ffd700, #fff6c2 30%, #b8860b 55%, #ffd700 80%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  /* 扫光高光 */
+  .shine-mask {
+    position: relative;
+    overflow: hidden;
+  }
+  .shine-mask::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -75%;
+    width: 50%;
+    height: 200%;
+    background: linear-gradient(
+      115deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.35) 50%,
+      transparent 100%
+    );
+    transform: skewX(-18deg);
+    animation: shine 3s linear infinite;
+    pointer-events: none;
+  }
+
+  /* 直播卡 conic 边框流光 */
+  .flow-border {
+    position: relative;
+    background-clip: padding-box;
+  }
+  .flow-border::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      #00ff87 60deg,
+      #00d2ff 120deg,
+      transparent 200deg
+    );
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: border-flow 3s linear infinite;
+    pointer-events: none;
+  }
+
+  .pitch-bg {
+    background:
+      radial-gradient(120% 60% at 50% -10%, rgba(0, 255, 135, 0.16), transparent 60%),
+      radial-gradient(90% 50% at 50% 0%, rgba(0, 210, 255, 0.12), transparent 70%),
+      linear-gradient(180deg, #0a1f1a 0%, #0b1026 45%, #1a0b2e 100%);
+  }
+}
+
+/* ============ Keyframes ============ */
+@keyframes breathe {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 255, 135, 0.5), 0 0 22px 4px rgba(0, 255, 135, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(0, 255, 135, 0), 0 0 34px 8px rgba(0, 255, 135, 0.55);
+  }
+}
+
+@keyframes border-flow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes beam {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scaleY(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1.08);
+  }
+}
+
+@keyframes ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shine {
+  0% {
+    left: -75%;
+  }
+  60%,
+  100% {
+    left: 130%;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateY(-22px) translateX(8px);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.7);
+  }
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  45% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 0.55;
+  }
+  55% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
