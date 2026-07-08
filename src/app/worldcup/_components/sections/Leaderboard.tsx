@@ -3,8 +3,8 @@
 import { motion } from "framer-motion";
 import { CountUp } from "@/app/worldcup/_components/ui/CountUp";
 import { SectionTitle } from "@/app/worldcup/_components/ui/SectionTitle";
-import { leaderboard } from "@/app/worldcup/lib/data";
-import { staggerContainer, staggerItem } from "@/app/worldcup/lib/motion";
+import { leaderboard } from "@/app/worldcup/_lib/data";
+import { staggerContainer, staggerItem } from "@/app/worldcup/_lib/motion";
 
 export function Leaderboard() {
   const top3 = leaderboard.slice(0, 3);

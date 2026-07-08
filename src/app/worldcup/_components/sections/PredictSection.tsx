@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { CountUp } from "@/app/worldcup/_components/ui/CountUp";
 import { SectionTitle } from "@/app/worldcup/_components/ui/SectionTitle";
-import { predictTeams } from "@/app/worldcup/lib/data";
+import { predictTeams } from "@/app/worldcup/_lib/data";
 
 export function PredictSection() {
   const [selected, setSelected] = useState<string>("bra");
@@ -30,11 +30,10 @@ export function PredictSection() {
               key={pt.team.id}
               onClick={() => setSelected(pt.team.id)}
               whileTap={{ scale: 0.97 }}
-              className={`relative w-full overflow-hidden rounded-2xl border p-3 text-left transition-colors ${
-                active
-                  ? "border-gold bg-gold/10"
-                  : "border-white/10 bg-white/5"
-              }`}
+              className={`relative w-full overflow-hidden rounded-2xl border p-3 text-left transition-colors ${active
+                ? "border-gold bg-gold/10"
+                : "border-white/10 bg-white/5"
+                }`}
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
@@ -42,9 +41,8 @@ export function PredictSection() {
                   <span className="font-bold text-white">{pt.team.name}</span>
                 </div>
                 <span
-                  className={`flex h-6 w-6 items-center justify-center rounded-full border text-xs ${
-                    active ? "border-gold bg-gold text-black" : "border-white/20 text-transparent"
-                  }`}
+                  className={`flex h-6 w-6 items-center justify-center rounded-full border text-xs ${active ? "border-gold bg-gold text-black" : "border-white/20 text-transparent"
+                    }`}
                 >
                   ✓
                 </span>

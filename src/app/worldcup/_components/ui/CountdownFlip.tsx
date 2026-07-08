@@ -39,23 +39,24 @@ function Unit({ value, label }: { value: number; label: string }) {
 }
 
 export function CountdownFlip({ target }: { target: string }) {
-  const targetTs = new Date(target).getTime();
-  const [time, setTime] = useState(() => getTimeLeft(targetTs));
+  const [t, setT] = useState({ days: 0, hours: 0, mins: 0, secs: 0 });
 
   useEffect(() => {
-    const id = setInterval(() => setTime(getTimeLeft(targetTs)), 1000);
+    const ts = new Date(target).getTime();
+    setT(getTimeLeft(ts));
+    const id = setInterval(() => setT(getTimeLeft(ts)), 1000);
     return () => clearInterval(id);
-  }, [targetTs]);
+  }, [target]);
 
   return (
     <div className="flex items-center gap-1.5 sm:gap-2.5">
-      <Unit value={time.days} label="天" />
+      <Unit value={t.days} label="天" />
       <span className="-mt-4 text-xl font-black text-neon">:</span>
-      <Unit value={time.hours} label="时" />
+      <Unit value={t.hours} label="时" />
       <span className="-mt-4 text-xl font-black text-neon">:</span>
-      <Unit value={time.mins} label="分" />
+      <Unit value={t.mins} label="分" />
       <span className="-mt-4 text-xl font-black text-neon">:</span>
-      <Unit value={time.secs} label="秒" />
+      <Unit value={t.secs} label="秒" />
     </div>
   );
 }

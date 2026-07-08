@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
-import { sectionReveal, viewportOnce } from "@/app/worldcup/lib/motion";
+import { sectionReveal, viewportOnce } from "@/app/worldcup/_lib/motion";
 
 export function SectionReveal({
   children,

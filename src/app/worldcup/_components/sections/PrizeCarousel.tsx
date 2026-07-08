@@ -1,9 +1,9 @@
 "use client";
 
-import { motion, useMotionValue } from "framer-motion";
+import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useRef, useState } from "react";
 import { SectionTitle } from "@/app/worldcup/_components/ui/SectionTitle";
-import { prizes } from "@/app/worldcup/lib/data";
+import { prizes } from "@/app/worldcup/_lib/data";
 
 export function PrizeCarousel() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -51,13 +51,12 @@ export function PrizeCarousel() {
                 <div className="mb-2 flex items-center justify-between">
                   <span className="text-3xl">{p.emoji}</span>
                   <span
-                    className={`rounded-full px-2 py-0.5 text-[10px] font-black ${
-                      p.tier === "grand"
-                        ? "bg-gold text-black"
-                        : p.tier === "mid"
-                          ? "bg-cyan text-black"
-                          : "bg-white/10 text-white/60"
-                    }`}
+                    className={`rounded-full px-2 py-0.5 text-[10px] font-black ${p.tier === "grand"
+                      ? "bg-gold text-black"
+                      : p.tier === "mid"
+                        ? "bg-cyan text-black"
+                        : "bg-white/10 text-white/60"
+                      }`}
                   >
                     {p.tier === "grand" ? "限定" : p.tier === "mid" ? "高端" : "普通"}
                   </span>
@@ -87,9 +86,8 @@ export function PrizeCarousel() {
           <button
             key={i}
             onClick={() => setActive(i)}
-            className={`h-1.5 rounded-full transition-all duration-300 ${
-              i === active ? "w-5 bg-gold" : "w-1.5 bg-white/20"
-            }`}
+            className={`h-1.5 rounded-full transition-all duration-300 ${i === active ? "w-5 bg-gold" : "w-1.5 bg-white/20"
+              }`}
           />
         ))}
       </div>

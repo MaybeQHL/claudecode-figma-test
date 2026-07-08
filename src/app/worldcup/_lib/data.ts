@@ -165,48 +165,17 @@ export type Task = {
 };
 
 export const tasks: Task[] = [
-  { id: "invite", title: "邀请好友", desc: "邀请1位好友参与活动", reward: "+500积分", progress: 0, total: 1, done: false },
-  { id: "watch", title: "观看直播", desc: "观看15分钟赛事直播", reward: "+200积分", progress: 0, total: 1, done: false },
-  { id: "share", title: "分享活动", desc: "分享活动到朋友圈", reward: "+100积分", progress: 0, total: 1, done: false },
+  { id: "t1", title: "每日签到", desc: "今日签到领 50 积分", reward: "+50", progress: 1, total: 1, done: true },
+  { id: "t2", title: "观看直播 5 分钟", desc: "巴西 vs 阿根廷", reward: "+100", progress: 3, total: 5, done: false },
+  { id: "t3", title: "邀请好友助威", desc: "邀请 1 位好友即可", reward: "+200", progress: 0, total: 1, done: false },
+  { id: "t4", title: "分享预测结果", desc: "分享至社交平台", reward: "+80", progress: 0, total: 1, done: false },
 ];
-
-export const signInRewards = [
-  { day: 1, reward: "+50" },
-  { day: 2, reward: "+100" },
-  { day: 3, reward: "+150" },
-  { day: 4, reward: "+200" },
-  { day: 5, reward: "+250" },
-  { day: 6, reward: "+300" },
-  { day: 7, reward: "大礼" },
-] as const;
-
-export const activityRules = [
-  { title: "活动时间", desc: "2026年6月11日 — 2026年7月19日" },
-  { title: "参与资格", desc: "所有注册用户均可参与竞猜、点球挑战等互动" },
-  { title: "竞猜规则", desc: "选择你预测的冠军球队并投入积分，猜中按支持率倍数返还积分" },
-  { title: "点球挑战", desc: "每日5次免费机会，进球得50积分，连续进球有额外奖励" },
-  { title: "积分排行", desc: "活动期间累计积分，Top10 获得决赛门票、签名球衣等实物大奖" },
-  { title: "奖励发放", desc: "活动结束后7个工作日内，通过站内信通知获奖者并发放奖品" },
-] as const;
-
-export type UserPrize = {
-  name: string;
-  icon: string;
-  status: "待揭晓" | "未获得" | "已获得";
-};
-
-export const userPrizes: UserPrize[] = [
-  { name: "决赛门票", icon: "🎟️", status: "待揭晓" },
-  { name: "球星球衣", icon: "👕", status: "未获得" },
-  { name: "积分大礼包", icon: "💰", status: "已获得" },
-];
-
-export const USER_POINTS = 2480;
 
 export const eventInfo = {
   title: "燃情绿茵",
   subtitle: "决战 2026",
   slogan: "世界杯狂欢 · 竞猜赢大奖",
-  targetDate: "2026-06-11T18:00:00Z",
+  // 倒计时目标（固定未来时间，避免服务端/客户端 hydration 差异，运行时再判断）
+  targetDate: "2026-12-31T20:00:00Z",
   totalPrize: "¥1,000,000",
 };

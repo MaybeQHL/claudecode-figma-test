@@ -49,7 +49,7 @@ export function PenaltyGame() {
         setTimeout(() => setLast(null), 1200);
       }, 200);
     },
-    [],
+    [score]
   );
 
   return (

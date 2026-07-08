@@ -4,8 +4,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { GlassCard } from "@/app/worldcup/_components/ui/GlassCard";
 import { SectionTitle } from "@/app/worldcup/_components/ui/SectionTitle";
-import { matches, type Match } from "@/app/worldcup/lib/data";
-import { staggerContainer, staggerItem, easeOut, viewportOnce } from "@/app/worldcup/lib/motion";
+import { matches, type Match } from "@/app/worldcup/_lib/data";
+import { staggerContainer, staggerItem, easeOut, viewportOnce } from "@/app/worldcup/_lib/motion";
 
 const tabs = [
   { key: "live", label: "今日赛事" },
@@ -18,7 +18,7 @@ function StatusTag({ m }: { m: Match }) {
     return (
       <span className="flex items-center gap-1 rounded-full bg-flame/20 px-2 py-0.5 text-[10px] font-bold text-flame">
         <span className="h-1.5 w-1.5 rounded-full bg-flame animate-pulse-dot" />
-        直播 {m.minute}&apos;
+        直播 {m.minute}'
       </span>
     );
   if (m.status === "upcoming")
@@ -144,9 +144,8 @@ export function MatchSection() {
           <button
             key={t.key}
             onClick={() => setActive(t.key)}
-            className={`relative pb-2 text-sm font-bold transition-colors ${
-              active === t.key ? "text-white" : "text-white/40"
-            }`}
+            className={`relative pb-2 text-sm font-bold transition-colors ${active === t.key ? "text-white" : "text-white/40"
+              }`}
           >
             {t.label}
             {active === t.key && (

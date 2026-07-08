@@ -1,87 +1,71 @@
 "use client";
 
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { SectionTitle } from "@/app/worldcup/_components/ui/SectionTitle";
-import { signInRewards, tasks } from "@/app/worldcup/lib/data";
+import { tasks } from "@/app/worldcup/_lib/data";
 
 export function TaskSection() {
-  const [signed, setSigned] = useState<number[]>([1]);
-  const [taskDone, setTaskDone] = useState<Record<string, boolean>>({});
+  const [list, setList] = useState(tasks);
 
-  function signDay(day: number) {
-    const isSigned = signed.includes(day);
-    const canSign = !isSigned && (day === 1 || signed.includes(day - 1));
-    if (canSign) setSigned((prev) => [...prev, day]);
+  function toggle(id: string) {
+    setList((prev) =>
+      prev.map((t) =>
+        t.id === id ? { ...t, done: !t.done, progress: t.done ? 0 : t.total } : t
+      )
+    );
   }
 
   return (
     <div className="px-4">
-      <SectionTitle title="每日福利" sub="REWARDS" accent="neon" />
+      <SectionTitle title="任务福利" sub="REWARDS" accent="neon" />
 
-      {/* 连续签到 */}
-      <div className="mb-3 rounded-xl border border-white/10 bg-white/[0.03] p-4">
-        <div className="mb-3 flex items-center">
-          <span className="mr-2 text-base">📅</span>
-          <span className="text-sm font-bold">连续签到</span>
-          <span className="ml-auto text-xs text-white/40">
-            已签 {signed.length}/7 天
-          </span>
-        </div>
-        <div className="flex gap-1.5">
-          {signInRewards.map(({ day, reward }) => {
-            const isSigned = signed.includes(day);
-            const canSign = !isSigned && (day === 1 || signed.includes(day - 1));
-            return (
-              <button
-                key={day}
-                onClick={() => signDay(day)}
-                disabled={!canSign}
-                className={`flex flex-1 flex-col items-center justify-center gap-0.5 rounded-lg py-2 text-[10px] font-bold transition-colors active:scale-95 ${
-                  isSigned
-                    ? "bg-gradient-to-br from-neon to-cyan text-black"
-                    : "bg-white/5 text-white/40"
-                } ${canSign ? "cursor-pointer" : "cursor-default"}`}
-                style={{ aspectRatio: "1" }}
+      <div className="space-y-2">
+        {list.map((t) => (
+          <motion.div
+            key={t.id}
+            layout
+            onClick={() => toggle(t.id)}
+            className={`flex cursor-pointer items-center gap-3 rounded-xl border p-3 transition-colors active:scale-[0.98] ${t.done
+              ? "border-neon/30 bg-neon/5"
+              : "border-white/10 bg-white/5"
+              }`}
+          >
+            {/* 完成勾选 */}
+            <motion.span
+              animate={{ scale: t.done ? 1 : 0.8, opacity: t.done ? 1 : 0.3 }}
+              className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-2 text-sm ${t.done ? "border-neon bg-neon text-black" : "border-white/20 text-transparent"
+                }`}
+            >
+              ✓
+            </motion.span>
+
+            <div className="flex-1">
+              <div
+                className={`text-sm font-bold ${t.done ? "text-white/50 line-through" : "text-white"}`}
               >
-                {isSigned ? "✓" : day}
-                <span className="text-[7px] opacity-70">{reward}</span>
-              </button>
-            );
-          })}
-        </div>
+                {t.title}
+              </div>
+              <div className="text-[11px] text-white/40">{t.desc}</div>
+            </div>
+
+            <span
+              className={`rounded-full px-2.5 py-1 text-xs font-black ${t.done
+                ? "bg-neon/20 text-neon"
+                : "bg-flame/20 text-flame"
+                }`}
+            >
+              {t.done ? "已完成" : t.reward}
+            </span>
+          </motion.div>
+        ))}
       </div>
 
-      {/* 任务列表 */}
-      <div className="space-y-2">
-        {tasks.map((t) => {
-          const done = taskDone[t.id] ?? false;
-          return (
-            <button
-              key={t.id}
-              onClick={() => setTaskDone((prev) => ({ ...prev, [t.id]: !done }))}
-              className={`flex w-full items-center gap-3 rounded-xl border p-3.5 text-left transition-colors active:scale-[0.98] ${
-                done ? "border-neon/20 bg-neon/5" : "border-white/10 bg-white/[0.03]"
-              }`}
-            >
-              <span className="text-2xl">
-                {t.id === "invite" ? "👥" : t.id === "watch" ? "📺" : "📤"}
-              </span>
-              <div className="flex-1">
-                <div className="text-sm font-bold">{t.title}</div>
-                <div className="mt-0.5 text-[11px] text-white/40">{t.desc}</div>
-              </div>
-              <span
-                className={`shrink-0 rounded-full px-4 py-1.5 text-xs font-bold ${
-                  done
-                    ? "bg-neon/10 text-neon"
-                    : "bg-gradient-to-r from-neon to-cyan text-[#0A1F1A]"
-                }`}
-              >
-                {done ? "✓ 已完成" : t.reward}
-              </span>
-            </button>
-          );
-        })}
+      {/* 浮动金币 */}
+      <div className="mt-4 text-center">
+        <span className="text-xs text-white/40">
+          累计获得 <span className="font-black text-gold">430</span> 积分
+        </span>
       </div>
     </div>
   );
