@@ -2,8 +2,8 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { GlassCard } from "@/app/worldcup/components/ui/GlassCard";
-import { SectionTitle } from "@/app/worldcup/components/ui/SectionTitle";
+import { GlassCard } from "@/app/worldcup/_components/ui/GlassCard";
+import { SectionTitle } from "@/app/worldcup/_components/ui/SectionTitle";
 import { matches, type Match } from "@/app/worldcup/lib/data";
 import { staggerContainer, staggerItem, easeOut, viewportOnce } from "@/app/worldcup/lib/motion";
 
@@ -18,7 +18,7 @@ function StatusTag({ m }: { m: Match }) {
     return (
       <span className="flex items-center gap-1 rounded-full bg-flame/20 px-2 py-0.5 text-[10px] font-bold text-flame">
         <span className="h-1.5 w-1.5 rounded-full bg-flame animate-pulse-dot" />
-        直播 {m.minute}'
+        直播 {m.minute}&apos;
       </span>
     );
   if (m.status === "upcoming")

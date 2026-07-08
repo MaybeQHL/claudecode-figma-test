@@ -2,8 +2,8 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { CountUp } from "@/app/worldcup/components/ui/CountUp";
-import { SectionTitle } from "@/app/worldcup/components/ui/SectionTitle";
+import { CountUp } from "@/app/worldcup/_components/ui/CountUp";
+import { SectionTitle } from "@/app/worldcup/_components/ui/SectionTitle";
 import { predictTeams } from "@/app/worldcup/lib/data";
 
 export function PredictSection() {

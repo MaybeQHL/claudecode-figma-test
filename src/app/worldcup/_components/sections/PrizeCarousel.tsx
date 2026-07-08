@@ -1,8 +1,8 @@
 "use client";
 
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
 import { useRef, useState } from "react";
-import { SectionTitle } from "@/app/worldcup/components/ui/SectionTitle";
+import { SectionTitle } from "@/app/worldcup/_components/ui/SectionTitle";
 import { prizes } from "@/app/worldcup/lib/data";
 
 export function PrizeCarousel() {

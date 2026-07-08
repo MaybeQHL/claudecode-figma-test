@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CountUp } from "@/app/worldcup/components/ui/CountUp";
-import { SectionTitle } from "@/app/worldcup/components/ui/SectionTitle";
+import { CountUp } from "@/app/worldcup/_components/ui/CountUp";
+import { SectionTitle } from "@/app/worldcup/_components/ui/SectionTitle";
 import { leaderboard } from "@/app/worldcup/lib/data";
 import { staggerContainer, staggerItem } from "@/app/worldcup/lib/motion";
 

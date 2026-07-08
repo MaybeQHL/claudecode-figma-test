@@ -1,12 +1,17 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CountdownFlip } from "@/app/worldcup/components/ui/CountdownFlip";
-import { NeonButton } from "@/app/worldcup/components/ui/NeonButton";
-import { ParticleField } from "@/app/worldcup/components/ui/ParticleField";
+import { CountdownFlip } from "@/app/worldcup/_components/ui/CountdownFlip";
+import { NeonButton } from "@/app/worldcup/_components/ui/NeonButton";
+import { ParticleField } from "@/app/worldcup/_components/ui/ParticleField";
 import { eventInfo } from "@/app/worldcup/lib/data";
+import type { ModalType } from "@/app/worldcup/lib/types";
 
-export function Hero() {
+type HeroProps = {
+  onOpenModal: (type: ModalType) => void;
+};
+
+export function Hero({ onOpenModal }: HeroProps) {
   return (
     <section className="relative overflow-hidden">
       {/* 背景层 */}
@@ -75,13 +80,18 @@ export function Hero() {
 
         {/* 倒计时 */}
         <div className="mb-3 text-xs font-medium tracking-widest text-white/40 uppercase">
-          距离决赛日
+          距世界杯开幕
         </div>
         <CountdownFlip target={eventInfo.targetDate} />
 
         {/* 主 CTA */}
         <div className="mt-8">
-          <NeonButton breathe tone="neon" className="px-10 py-3.5 text-lg">
+          <NeonButton
+            breathe
+            tone="neon"
+            className="px-10 py-3.5 text-lg"
+            onClick={() => onOpenModal("bet")}
+          >
             🔥 立即竞猜
           </NeonButton>
           <p className="mt-2 text-xs text-white/40">

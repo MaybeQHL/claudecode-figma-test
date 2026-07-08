@@ -3,8 +3,8 @@
 import confetti from "canvas-confetti";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCallback, useState } from "react";
-import { CountUp } from "@/app/worldcup/components/ui/CountUp";
-import { SectionTitle } from "@/app/worldcup/components/ui/SectionTitle";
+import { CountUp } from "@/app/worldcup/_components/ui/CountUp";
+import { SectionTitle } from "@/app/worldcup/_components/ui/SectionTitle";
 
 const directions = [
   { label: "左上", angle: 315, x: -0.5, y: -0.5 },
@@ -49,7 +49,7 @@ export function PenaltyGame() {
         setTimeout(() => setLast(null), 1200);
       }, 200);
     },
-    [score]
+    [],
   );
 
   return (
